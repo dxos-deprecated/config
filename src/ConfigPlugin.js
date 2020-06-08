@@ -12,13 +12,13 @@ import { mapFromKeyValues } from './config';
 const DEFAULT_PATH = resolve(process.cwd(), 'config');
 
 const KEYS_TO_FILE = {
-  '__CONFIG_DEFAULTS__': 'defaults.yml',
-  '__CONFIG_ENVS__': 'envs-map.yml',
-  '__CONFIG_DYNAMICS__': 'config.yml'
+  __CONFIG_DEFAULTS__: 'defaults.yml',
+  __CONFIG_ENVS__: 'envs-map.yml',
+  __CONFIG_DYNAMICS__: 'config.yml'
 };
 
 export class ConfigPlugin {
-  constructor({ path = DEFAULT_PATH, dynamic = false } = {}) {
+  constructor ({ path = DEFAULT_PATH, dynamic = false } = {}) {
     this._path = path;
     this._dynamic = dynamic;
   }
@@ -27,7 +27,7 @@ export class ConfigPlugin {
    * @param {Compiler} compiler webpack compiler instance
    * @returns {void}
    */
-  apply(compiler) {
+  apply (compiler) {
     // Grab info from compiler, and set a __DXOS_CONFIG__ with { publicUrl, useLocal }. Add to generated keys.
     // Append the generated keys to DefinePlugin (see constructor)
     // Use Context Replacement to use loaders/browser
@@ -51,8 +51,7 @@ export class ConfigPlugin {
         ...prev,
         [key]: JSON.stringify(content)
       };
-    }, { '__DXOS_CONFIG__': JSON.stringify({ dynamic: this._dynamic, publicUrl: compiler.options.output.publicPath })
-    });
+    }, { __DXOS_CONFIG__: JSON.stringify({ dynamic: this._dynamic, publicUrl: compiler.options.output.publicPath }) });
 
     new DefinePlugin(definitions).apply(compiler);
     new NormalModuleReplacementPlugin(/[/\\]loaders[/\\]index.js/, './browser.js').apply(compiler);

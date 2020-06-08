@@ -13,7 +13,7 @@ import { boolean } from 'boolean';
  * @param {object} values
  * @return {object}
  */
-export function mapFromKeyValues(spec, values) {
+export function mapFromKeyValues (spec, values) {
   const config = {};
 
   for (const [key, { path, type }] of Object.entries(spec)) {
@@ -59,7 +59,7 @@ export function mapFromKeyValues(spec, values) {
  * @param {object} spec
  * @param {object} values
  */
-export function mapToKeyValues(spec, values) {
+export function mapToKeyValues (spec, values) {
   const config = {};
 
   for (const [key, { path, type }] of Object.entries(spec)) {
@@ -83,13 +83,12 @@ export function mapToKeyValues(spec, values) {
  * NOTE: Config objects are immutable.
  */
 export class Config {
-
   /**
    * Creates an immutable instance.
    * @constructor
    * @param objects
    */
-  constructor(...objects) {
+  constructor (...objects) {
     this._config = defaultsDeep(...objects);
   }
 
@@ -97,7 +96,7 @@ export class Config {
    * Returns an immutable config JSON object.
    * @return {object}
    */
-  get values() {
+  get values () {
     return this._config;
   }
 
@@ -106,7 +105,7 @@ export class Config {
    * @param {string} key
    * @param {any} [defaultValue]
    */
-  get(key, defaultValue) {
+  get (key, defaultValue) {
     return get(this._config, key, defaultValue);
   }
 }
