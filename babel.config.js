@@ -1,3 +1,7 @@
+//
+// Copyright 2020 DXOS.
+//
+
 module.exports = {
   presets: [
     '@babel/preset-env'
